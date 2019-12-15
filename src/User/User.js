@@ -1,9 +1,13 @@
 import React from 'react';
 
-const User = ({name, birthyear}) => {
+const User = ({name, birthyear, children}) => {
    return (
       <div className="User">
-         {name} was {1969 - birthyear} years old when he walked on the moon.
+         <p>
+            {name} was {1969 - birthyear} years old when he walked on the moon.
+         </p>
+         <p>{children}</p>
+         <hr/>
       </div>
    );
 }
