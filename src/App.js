@@ -15,6 +15,13 @@ class App extends Component {
       ]
    }
 
+   viewUserHandler = () => {
+      let users = this.state.users
+      users[0].name = 'newname'
+
+      this.setState({users})
+   }
+
    render() {
       return (
          <div className="App">
@@ -30,6 +37,7 @@ class App extends Component {
                </a>
             </header>
 
+            <button onClick={this.viewUserHandler}>View User</button>
             {this.state.users.map((user, key) => (
                <User name={user.name} birthyear={user.birthyear}>
                   {user.about}
