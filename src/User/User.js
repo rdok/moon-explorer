@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const User = ({name, birthyear, children}) => {
+const User = ({name, birthyear, children, click}) => {
    const [state, setState] = useState({
       createdAt: Date.now()
    })
@@ -19,6 +19,7 @@ const User = ({name, birthyear, children}) => {
          <p>
             Created at: {state.createdAt}
             <button onClick={refreshHandler}>Refresh</button>
+            <button onClick={click}>View User Internally</button>
          </p>
          <p>{children}</p>
          <hr/>

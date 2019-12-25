@@ -39,7 +39,12 @@ class App extends Component {
 
             <button onClick={this.viewUserHandler}>View User</button>
             {this.state.users.map((user, key) => (
-               <User name={user.name} birthyear={user.birthyear}>
+               <User 
+                  click={this.viewUserHandler}
+                  key={user.name.toString()}
+                  name={user.name}
+                  birthyear={user.birthyear}
+               >
                   {user.about}
                </User>
             ))}

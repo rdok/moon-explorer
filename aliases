@@ -1,0 +1,23 @@
+function workbench-up() {
+   docker container run \
+      --rm \
+      --detach \
+      --interactive \
+      --tty \
+      --user "$(id -u):$(id -g)" \
+      --volume "$(pwd)":/app \
+      --workdir /app \
+      --publish 3000:3000 \
+      --publish 3001:3001 \
+      --name workbench \
+         node:alpine \
+            tail -f /dev/null
+}
+
+function workbench-down() {
+   docker kill workbench
+}
+
+function yarn() {
+   docker exec -it -w /app workbench yarn "$@"
+}
