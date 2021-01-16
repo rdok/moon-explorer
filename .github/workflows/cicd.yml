@@ -34,9 +34,13 @@ jobs:
             ENVIRONMENT=testing
             SUBDOMAIN="testing-"
           fi
+          WILDCARD_CERTIFICATE_ARN=$(aws --region us-east-1 --output text acm \
+            list-certificates --query "CertificateSummaryList[?DomainName=='${BASE_DOMAIN}'].CertificateArn")
+
           echo ::set-output name=stack-name::"rdok-${ENVIRONMENT}-${NAME}"
           echo ::set-output name=domain::"${SUBDOMAIN}${NAME}.${BASE_DOMAIN}"
           echo ::set-output name=deploy-bucket::"rdok-${ENVIRONMENT}-deployments-us-east-1"
+          echo ::set-output name=wildcard-certificate-arn::"${WILDCARD_CERTIFICATE_ARN}"
       - name: CloudFormation Package & Deploy
         run: |
           sam package \
@@ -53,7 +57,7 @@ jobs:
             --parameter-overrides \
               Route53HostedZoneId=ZSY7GT2NEDPN0 \
               DomainName=${{ steps.env.outputs.domain }} \
-              WildcardCertificateARN=${{ secrets.WILDCARD_CERTIFICATE_ARN }}
+              WildcardCertificateARN=${{ steps.env.outputs.wildcard-certificate-arn }}
       - name: Website Bucket Sync
         run: |
           BUCKET_NAME=$( \
