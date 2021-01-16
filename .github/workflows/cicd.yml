@@ -19,10 +19,12 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Yarn, Test
-        run: make check
+      - name: Yarn
+        run: make prod_node_modules
+      - name: Test
+        run: make prod_test
       - name: Build
-        run: make build
+        run: make prod_build
       - name: Prepare environment variables
         id: env
         env:

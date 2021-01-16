@@ -19,3 +19,13 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
+
+  node-prod:
+    tty: true
+    stdin_open: true
+    image: node:15-alpine3.10
+    working_dir: /app
+    environment:
+      - CI=true
+    volumes:
+      - ./:/app
