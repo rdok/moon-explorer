@@ -66,7 +66,7 @@ jobs:
               --query 'Stacks[0].Outputs[?OutputKey==`WebsiteBucket`].OutputValue' \
               --output text \
           )
-          aws s3 sync ./public s3://${BUCKET_NAME} --delete
+          aws s3 sync ./build s3://${BUCKET_NAME} --delete
       - name: Cache Invalidation
         run: |
           DISTRIBUTION_ID=$( \
